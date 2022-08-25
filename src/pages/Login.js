@@ -1,32 +1,75 @@
 import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useLogin } from "../hooks/useLogin";
 
 function Login() {
   const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
+  const { login, error, isLoading } = useLogin();
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(email, password);
-  }
+    await login(email, password);
+  };
 
   return (
-    <form className="login" onSubmit={handleSubmit}>
-      <h3>Log in</h3>
-      <label>Email</label>
-      <input
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      <label>password</label>
-      <input
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <button>Log in</button>
-    </form>
+    <Box
+      component="form"
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minWidth: "300px",
+          minHeight: "300px",
+          alignItems: "center",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          background: "white",
+          borderRadius: "5px",
+          marginLeft: "-150px",
+          marginTop: "-150px",
+        }}
+      >
+        <TextField
+          style={{ marginTop: "25px" }}
+          id="outlined-password-input"
+          label="Email"
+          type="email"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          value={email}
+        />
+
+        <TextField
+          style={{ marginTop: "25px" }}
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          value={password}
+        />
+
+        <Button onClick={handleSubmit} disabled={isLoading} variant="contained">
+          Log in{" "}
+        </Button>
+        {error && <div style={{ marginTop: "25px" }}>{error}</div>}
+      </div>
+    </Box>
   );
 }
 

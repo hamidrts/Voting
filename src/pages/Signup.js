@@ -1,33 +1,98 @@
 import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useSignup } from "../hooks/useSignup";
 
-function Signup() {
+function Sighup() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [department, setDepartment] = useState("");
   const [password, setPassword] = useState("");
+  const { signup, error, isLoading } = useSignup();
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(email, password);
-  }
+    await signup(name, email, department, password);
+  };
 
   return (
-    <form className="signup" onSubmit={handleSubmit}>
-      <h3>Sign up</h3>
-      <label>Email</label>
-      <input
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      <label>password</label>
-      <input
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <button>Sign up</button>
-    </form>
+    <Box
+      component="form"
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minWidth: "300px",
+          minHeight: "300px",
+          alignItems: "center",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          background: "white",
+          borderRadius: "5px",
+          marginLeft: "-150px",
+          marginTop: "-150px",
+        }}
+      >
+        <TextField
+          style={{ marginTop: "25px" }}
+          id="outlined-password-input"
+          label="Name"
+          type="text"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          value={name}
+        />
+        <TextField
+          style={{ marginTop: "25px" }}
+          id="outlined-password-input"
+          label="Email"
+          type="email"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          value={email}
+        />
+        <TextField
+          style={{ marginTop: "25px" }}
+          id="outlined-password-input"
+          label="Department"
+          type="text"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setDepartment(e.target.value);
+          }}
+          value={department}
+        />
+        <TextField
+          style={{ marginTop: "25px" }}
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          value={password}
+        />
+
+        <Button onClick={handleSubmit} disabled={isLoading} variant="contained">
+          Sign up{" "}
+        </Button>
+        {error && <div style={{ marginTop: "25px" }}>{error}</div>}
+      </div>
+    </Box>
   );
 }
 
-export default Signup;
+export default Sighup;
