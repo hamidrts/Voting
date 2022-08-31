@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogOut";
 import { useAuthContext } from "../hooks/useAuthContext";
+import image from "../image/38a932ea8c264a618f5ccc65346fc5a4 (1).png";
+import AccountMenu from "./AccountMenu";
 
 function Navbar() {
   const { user } = useAuthContext();
@@ -13,18 +15,22 @@ function Navbar() {
   return (
     <header>
       <div className="container">
-        <Link className="link" to="/voting/app">
-          <h1> Home</h1>
-        </Link>
-
-        <nav>
-          <div>
-            <Link to="/voting/app/login">Login</Link>
-            <Link to="/voting/app/signup">Signup</Link>
+        <div>
+          <Link className="link" to="/">
+            <img className="logo" src={image} />
+          </Link>
+        </div>
+        {!user && (
+          <div className="container">
+            <div>
+              <Link to="/login">Login</Link>
+            </div>
+            <div style={{ marginLeft: 20 }}>
+              <Link to="/signup">Signup</Link>
+            </div>
           </div>
-
-          <button onClick={handleLogout}>Log Out</button>
-        </nav>
+        )}
+        {user && <AccountMenu />}
       </div>
     </header>
   );

@@ -25,12 +25,14 @@ export const useLogin = () => {
     }
 
     if (response.ok) {
+      console.log("json:", json);
       const user = {};
       user.name = json.user.name;
       user.email = json.user.email;
       user.department = json.user.department;
       user.token = json.token;
       user.id = json.id;
+      user.userImage = json.user.userImage;
 
       localStorage.setItem("user", JSON.stringify(user));
 

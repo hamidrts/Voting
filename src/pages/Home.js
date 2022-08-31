@@ -14,6 +14,7 @@ function Home() {
 
   const handleSelectElection = (event) => {
     const [choosedElection] = election.filter((item) => {
+      setError("");
       if (event.target.id === item._id) {
         return item;
       }
@@ -39,22 +40,26 @@ function Home() {
     vote.userId = user.id;
     vote.electionId = selectedElection._id;
     vote.candidateId = selectedCandidate;
-    const response = await fetch("/voting/app/submitvote", {
-      method: "POST",
-      body: JSON.stringify(vote),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json = await response.json();
+    if (!selectedCandidate) {
+      setError("Please select candidate!");
+    } else {
+      const response = await fetch("/voting/app/submitvote", {
+        method: "POST",
+        body: JSON.stringify(vote),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const json = await response.json();
 
-    if (!response.ok) {
-      setError(json.error);
-    }
-    if (response.ok) {
-      setSelectedElection([]);
-      setIfElectionSelect(false);
-      setSelectedCandidate(null);
+      if (!response.ok) {
+        setError(json.error);
+      }
+      if (response.ok) {
+        setSelectedElection([]);
+        setIfElectionSelect(false);
+        setSelectedCandidate(null);
+      }
     }
   };
 
@@ -82,14 +87,14 @@ function Home() {
   return (
     <div>
       {election &&
-        election.map((item) => {
+        election.map((item, key) => {
           return (
             <div>
               <ElectionCard
                 ifElectionSelect={ifElectionSelect}
                 handleSelectElection={handleSelectElection}
                 election={item}
-                key={item._id}
+                key={key}
               />
             </div>
           );
@@ -97,14 +102,14 @@ function Home() {
       <div className="vote-bord">
         <div className="candidate-place">
           {ifElectionSelect &&
-            selectedElection.candidates.map((candid) => {
+            selectedElection.candidates.map((candid, key) => {
               return (
                 <div>
                   <CandidatesVoting
                     candidate={candid}
                     selectedCandidate={selectedCandidate}
                     handleSelectCandidate={handleSelectCandidate}
-                    key={candid.id + 9}
+                    key={key}
                   />
                 </div>
               );

@@ -1,7 +1,8 @@
 .container {
   display: flex;
-  justify-content: right;
-  background-color: rgb(219, 224, 228);
+  justify-content: space-between;
+  background-color: rgb(181, 181, 231);
+  align-items: center;
 }
 
 .nominateDisplay {
@@ -115,4 +116,9 @@ body {
   box-shadow: 3px 3px 10px rgba(51, 202, 76, 0.9),
     -3px -3px 10px rgba(51, 202, 76, 0.9);
   border: 1px solid black;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
 }

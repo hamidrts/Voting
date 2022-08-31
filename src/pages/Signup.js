@@ -5,93 +5,128 @@ import Button from "@mui/material/Button";
 import { useSignup } from "../hooks/useSignup";
 
 function Sighup() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [department, setDepartment] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    department: "",
+    userImage: "",
+    password: "",
+  });
+
   const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup(name, email, department, password);
+    console.log(user);
+    await signup(
+      user.name,
+      user.email,
+      user.department,
+      user.userImage,
+      user.password
+    );
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          minWidth: "300px",
-          minHeight: "300px",
-          alignItems: "center",
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          background: "white",
-          borderRadius: "5px",
-          marginLeft: "-150px",
-          marginTop: "-150px",
-        }}
-      >
-        <TextField
-          style={{ marginTop: "25px" }}
-          id="outlined-password-input"
-          label="Name"
-          type="text"
-          autoComplete="current-password"
-          onChange={(e) => {
-            setName(e.target.value);
+    <div>
+      <div>
+        <Box
+          component="form"
+          sx={{
+            "& .MuiTextField-root": { m: 1, width: "25ch" },
           }}
-          value={name}
-        />
-        <TextField
-          style={{ marginTop: "25px" }}
-          id="outlined-password-input"
-          label="Email"
-          type="email"
-          autoComplete="current-password"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          value={email}
-        />
-        <TextField
-          style={{ marginTop: "25px" }}
-          id="outlined-password-input"
-          label="Department"
-          type="text"
-          autoComplete="current-password"
-          onChange={(e) => {
-            setDepartment(e.target.value);
-          }}
-          value={department}
-        />
-        <TextField
-          style={{ marginTop: "25px" }}
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          value={password}
-        />
+          noValidate
+          autoComplete="off"
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minWidth: "300px",
+              minHeight: "300px",
+              alignItems: "center",
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              background: "white",
+              borderRadius: "5px",
+              marginLeft: "-150px",
+              marginTop: "-150px",
+            }}
+          >
+            <TextField
+              style={{ marginTop: "25px" }}
+              label="Name"
+              type="text"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setUser((p) => {
+                  return { ...p, name: e.target.value };
+                });
+              }}
+              value={user.name}
+            />
+            <TextField
+              style={{ marginTop: "25px" }}
+              label="Email"
+              type="email"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setUser((p) => {
+                  return { ...p, email: e.target.value };
+                });
+              }}
+              value={user.email}
+            />
+            <TextField
+              style={{ marginTop: "25px" }}
+              label="Department"
+              type="text"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setUser((p) => {
+                  return { ...p, department: e.target.value };
+                });
+              }}
+              value={user.department}
+            />
+            <TextField
+              style={{ marginTop: "25px" }}
+              label="userImage"
+              type="text"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setUser((p) => {
+                  return { ...p, userImage: e.target.value };
+                });
+              }}
+              value={user.userImage}
+            />
+            <TextField
+              style={{ marginTop: "25px" }}
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              onChange={(e) => {
+                setUser((p) => {
+                  return { ...p, password: e.target.value };
+                });
+              }}
+              value={user.password}
+            />
 
-        <Button onClick={handleSubmit} disabled={isLoading} variant="contained">
-          Sign up{" "}
-        </Button>
-        {error && <div style={{ marginTop: "25px" }}>{error}</div>}
+            <Button
+              onClick={handleSubmit}
+              disabled={isLoading}
+              variant="contained"
+            >
+              Sign up{" "}
+            </Button>
+            {error && <div style={{ marginTop: "25px" }}>{error}</div>}
+          </div>
+        </Box>
       </div>
-    </Box>
+    </div>
   );
 }
 
