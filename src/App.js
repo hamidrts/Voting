@@ -10,7 +10,7 @@ import MyAccount from "./pages/MyAccount";
 
 function App() {
   const { user } = useAuthContext();
-  console.log(user);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,7 +24,7 @@ function App() {
               path="signup"
               element={!user ? <Signup /> : <Navigate to="/" />}
             />
-            <Route path="profile" element={<Profile />} />
+            <Route path="profile" element={!user ? <Login /> : <Profile />} />
             <Route path="myAccount" element={<MyAccount />} />
 
             <Route index element={<Home />} />

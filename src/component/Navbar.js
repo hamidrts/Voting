@@ -30,7 +30,16 @@ function Navbar() {
             </div>
           </div>
         )}
-        {user && <AccountMenu />}
+        {user && (
+          <div className="container">
+            <div>
+              <p>{user.name}</p>
+            </div>
+            <div style={{ marginRight: 20 }}>
+              <AccountMenu />
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

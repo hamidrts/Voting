@@ -80,12 +80,12 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <Avatar src={user.userImage} /> <Link to="/profile">Profile</Link>
+        <MenuItem component={Link} to="/profile">
+          <Avatar src={user.userImage} /> Profile
         </MenuItem>
-        <MenuItem>
+        <MenuItem component={Link} to="/myAccount">
           <Avatar src={user.userImage} />
-          <Link to="/myAccount">My Account</Link>
+          My Account
         </MenuItem>
         <Divider />
 

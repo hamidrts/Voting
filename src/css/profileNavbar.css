@@ -1,0 +1,30 @@
+.profile-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 104px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  max-width: 200px;
+  background-color: rgb(181, 181, 231);
+
+  justify-content: flex-start;
+}
+
+.active-buttom {
+  background-color: rgb(225, 222, 222);
+  width: 100%;
+
+  border: none;
+  cursor: pointer;
+  height: 100px;
+}
+
+.passive-Buttom {
+  width: 100%;
+  background-color: rgb(181, 181, 231);
+  border: none;
+  cursor: pointer;
+  height: 100px;
+}
