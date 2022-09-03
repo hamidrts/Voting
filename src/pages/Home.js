@@ -19,7 +19,7 @@ function Home() {
         return item;
       }
     });
-    console.log("hey", choosedElection);
+
     setSelectedElection(choosedElection);
     setIfElectionSelect(true);
   };
@@ -48,6 +48,7 @@ function Home() {
         body: JSON.stringify(vote),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
       });
       const json = await response.json();
@@ -75,10 +76,9 @@ function Home() {
       const response = await fetch(a);
       const json = await response.json();
       if (!response.ok) {
-        console.log(response);
+        setError(json.error);
       } else {
         setElection(json);
-        console.log("fetchedElection:", json);
       }
     };
     fetchElection(route);

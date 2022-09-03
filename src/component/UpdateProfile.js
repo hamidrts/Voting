@@ -37,7 +37,10 @@ function UpdateProfile() {
         const response = await fetch("/voting/app/updateprofile", {
           method: "PATCH",
           body: JSON.stringify(updatedUser),
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
         });
         const json = await response.json();
 

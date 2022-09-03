@@ -1,0 +1,28 @@
+.election-status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.election-result-card {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+  background-color: white;
+  margin-top: 50px;
+  margin-right: 25px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgba(91, 88, 88, 0.5);
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.candidates-Cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.votedCandidate {
+  box-shadow: 5px 5px 9px rgba(60, 156, 51, 0.5),
+    -5px -5px 9px rgba(60, 156, 51, 0.5);
+}

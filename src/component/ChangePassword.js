@@ -16,7 +16,10 @@ function ChangePassword() {
     setIsLoading(true);
     const response = await fetch("/voting/app/changepassword", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
       body: JSON.stringify({ email: user.email, password: password }),
     });
     const json = await response.json();
@@ -50,7 +53,10 @@ function ChangePassword() {
     } else {
       const response = await fetch("/voting/app/newpassword", {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
         body: JSON.stringify({ id: user.id, password }),
       });
 

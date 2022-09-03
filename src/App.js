@@ -24,8 +24,14 @@ function App() {
               path="signup"
               element={!user ? <Signup /> : <Navigate to="/" />}
             />
-            <Route path="profile" element={!user ? <Login /> : <Profile />} />
-            <Route path="myAccount" element={<MyAccount />} />
+            <Route
+              path="profile"
+              element={user ? <Profile /> : <Navigate to="/" />}
+            />
+            <Route
+              path="myAccount"
+              element={user ? <MyAccount /> : <Navigate to="/" />}
+            />
 
             <Route index element={<Home />} />
           </Route>
