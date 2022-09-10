@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useSignup } from "../hooks/useSignup";
+import MenuItem from "@mui/material/MenuItem";
+
+const departments = ["grocery", "meat", "paylue", "stock", "public", "none"];
 
 function Sighup() {
   const [user, setUser] = useState({
@@ -17,7 +20,7 @@ function Sighup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
+
     await signup(
       user.name,
       user.email,
@@ -81,27 +84,21 @@ function Sighup() {
             <TextField
               style={{ marginTop: "25px" }}
               label="Department"
-              type="text"
-              autoComplete="current-password"
+              select
               onChange={(e) => {
                 setUser((p) => {
                   return { ...p, department: e.target.value };
                 });
               }}
               value={user.department}
-            />
-            <TextField
-              style={{ marginTop: "25px" }}
-              label="userImage"
-              type="text"
-              autoComplete="current-password"
-              onChange={(e) => {
-                setUser((p) => {
-                  return { ...p, userImage: e.target.value };
-                });
-              }}
-              value={user.userImage}
-            />
+            >
+              {departments.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+
             <TextField
               style={{ marginTop: "25px" }}
               label="Password"
