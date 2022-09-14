@@ -26,3 +26,15 @@
   box-shadow: 5px 5px 9px rgba(60, 156, 51, 0.5),
     -5px -5px 9px rgba(60, 156, 51, 0.5);
 }
+
+.select-button-holder {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+  margin-top: 25px;
+}
+
+.select-button {
+  width: 200px;
+  cursor: pointer;
+}

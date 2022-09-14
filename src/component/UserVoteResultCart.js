@@ -1,9 +1,21 @@
 import React from "react";
 import CandidatesCard from "./electionCardComponent/CandidatesCard";
 import "../css/userVoteResult.css";
+import Button from "@mui/material/Button";
+
 let votedCandidateId = "";
 
-function UserVoteResultCart({ election, winner, vote }) {
+function UserVoteResultCart({ election, vote }) {
+  var winners = "";
+  if (election.status === "close") {
+    election.candidates.map((candid) => {
+      election.result.winner.map((win) => {
+        if (candid._id === win) {
+          winners += candid.candidName;
+        }
+      });
+    });
+  }
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div className="election-result-card">
@@ -15,7 +27,7 @@ function UserVoteResultCart({ election, winner, vote }) {
             Result:
             {election.status !== "close"
               ? "It has not been finished yet!"
-              : winner}
+              : winners}
           </p>
         </div>
         <div className="candidates-Cards">
@@ -27,6 +39,7 @@ function UserVoteResultCart({ election, winner, vote }) {
             });
             return (
               <div
+                style={{ marginLeft: "20px" }}
                 className={
                   votedCandidateId === candidate._id ? "votedCandidate" : ""
                 }
@@ -35,6 +48,11 @@ function UserVoteResultCart({ election, winner, vote }) {
               </div>
             );
           })}
+        </div>
+        <div className="select-button-holder">
+          <Button className="select-button" variant="contained">
+            See Result
+          </Button>
         </div>
       </div>
     </div>

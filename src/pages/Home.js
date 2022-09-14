@@ -12,6 +12,26 @@ function Home() {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    let route = "";
+
+    if (!user) {
+      route = "/voting/app?status=open";
+    } else {
+      route = "/voting/app?department=" + user.department + "&status=open";
+    }
+    const fetchElection = async (a) => {
+      const response = await fetch(a);
+      const json = await response.json();
+      if (!response.ok) {
+        setError(json.error);
+      } else {
+        setElection(json);
+      }
+    };
+    fetchElection(route);
+  }, [user]);
+
   const handleSelectElection = (event) => {
     const [choosedElection] = election.filter((item) => {
       setError("");
@@ -64,26 +84,6 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    let route = "";
-
-    if (!user) {
-      route = "/voting/app?status=open";
-    } else {
-      route = "/voting/app?department=" + user.department + "&status=open";
-    }
-    const fetchElection = async (a) => {
-      const response = await fetch(a);
-      const json = await response.json();
-      if (!response.ok) {
-        setError(json.error);
-      } else {
-        setElection(json);
-      }
-    };
-    fetchElection(route);
-  }, [user]);
-
   return (
     <div>
       {election &&
@@ -102,6 +102,7 @@ function Home() {
       <div className="vote-bord">
         <div className="candidate-place">
           {ifElectionSelect &&
+            user &&
             selectedElection.candidates.map((candid, key) => {
               return (
                 <div>
@@ -115,7 +116,7 @@ function Home() {
               );
             })}
         </div>
-        {ifElectionSelect && (
+        {ifElectionSelect && user && (
           <div className="button-holder">
             <div className="submit-button">
               <Button
